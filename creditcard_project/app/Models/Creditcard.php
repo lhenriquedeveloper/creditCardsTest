@@ -10,4 +10,10 @@ class Creditcard extends Model
     use HasFactory;
 
     protected $primaryKey = "id";
+    protected $fillable = [
+        'number',
+        'cvv',
+        'valid_date',
+        'user_id',
+    ];
 }

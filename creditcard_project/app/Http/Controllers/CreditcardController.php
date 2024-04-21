@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\User;
+use App\Models\Creditcard;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CreditcardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +13,10 @@ class UserController extends Controller
     {
         // Tenta exibir os usuários
         try{
-            return User::all();
+            return Creditcard::all();
         }
         catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao exibir os usuários: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao exibir os cartões: ' . $e->getMessage()], 500);
         }
     }
 
@@ -28,14 +27,14 @@ class UserController extends Controller
     {
         // Verifica se existem campos no objeto de solicitação
         if(count($request->all()) === 0) {
-            return response()->json(['message' => 'Nenhum dado fornecido para criação do usuário'], 422);
+            return response()->json(['message' => 'Nenhum dado fornecido para criação do cartão'], 422);
         }
 
         // Tenta criar o usuário
         try {
-            return User::create($request->all());
+            return Creditcard::create($request->all());
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao atualizar o cartão: ' . $e->getMessage()], 500);
         }
     }
 
@@ -48,17 +47,17 @@ class UserController extends Controller
         if(!is_numeric($id)) {
             return response()->json(['message' => 'O ID fornecido não é um número'], 422);
         }
-        elseif(User::find($id) === null) {
+        elseif(Creditcard::find($id) === null) {
             return response()->json(['message' => 'O ID fornecido não existe'], 404);
         }
-        elseif(!User::find($id)) {
+        elseif(!Creditcard::find($id)) {
             return response()->json(['message' => 'Não foi fornecido um ID'], 422);
         }
         // Tenta exibir o usuário
         try {
-            return User::findOrFail($id);
+            return Creditcard::findOrFail($id);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao exibir o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao exibir o cartão: ' . $e->getMessage()], 500);
         }
     }
 
@@ -67,7 +66,7 @@ class UserController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $user = User::findOrFail($id);
+        $user = Creditcard::findOrFail($id);
         // Verifica se existem campos no objeto de solicitação, ou se o ID foi fornecido (válido)
         if(count($request->all()) === 0) {
             return response()->json(['message' => 'Nenhum dado fornecido para atualização'], 422);
@@ -75,10 +74,10 @@ class UserController extends Controller
         elseif(!is_numeric($id)) {
             return response()->json(['message' => 'O ID fornecido não é um número'], 422);
         }
-        elseif(User::find($id) === null) {
+        elseif(Creditcard::find($id) === null) {
             return response()->json(['message' => 'O ID fornecido não existe'], 404);
         }
-        elseif(!User::find($id)) {
+        elseif(!Creditcard::find($id)) {
             return response()->json(['message' => 'Não foi fornecido um ID'], 422);
         }
         // Tenta atualizar o usuário
@@ -86,7 +85,7 @@ class UserController extends Controller
             $user->update($request->all());
             return $user;
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao atualizar o cartão: ' . $e->getMessage()], 500);
         }
     }
     /**
@@ -98,19 +97,19 @@ class UserController extends Controller
         if(!is_numeric($id)) {
             return response()->json(['message' => 'O ID fornecido não é um número'], 422);
         }
-        elseif(User::find($id) === null) {
+        elseif(Creditcard::find($id) === null) {
             return response()->json(['message' => 'O ID fornecido não existe'], 404);
         }
-        elseif(!User::find($id)) {
+        elseif(!Creditcard::find($id)) {
             return response()->json(['message' => 'Não foi fornecido um ID'], 422);
         }
         // Tenta excluir o usuário
         try{
-            User::destroy($id);
-            return response()->json(['message' => 'Usuário excluído com sucesso'], 200);
+            Creditcard::destroy($id);
+            return response()->json(['message' => 'Cartão excluído com sucesso'], 200);
         }
         catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao excluir o usuário' .$e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao excluir o cartão' .$e->getMessage()], 500);
         }
 
     }
