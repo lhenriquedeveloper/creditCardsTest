@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         // Tenta exibir os usuários
@@ -21,27 +18,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        // Verifica se existem campos no objeto de solicitação
-        if(count($request->all()) === 0) {
-            return response()->json(['message' => 'Nenhum dado fornecido para criação do usuário'], 422);
-        }
-
-        // Tenta criar o usuário
-        try {
-            return User::create($request->all());
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(int $id)
      // Verifica se o ID foi fornecido (válido)
     {
@@ -62,9 +38,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, int $id)
     {
         $user = User::findOrFail($id);
@@ -89,9 +62,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(int $id)
     {
         // Verifica se o ID foi fornecido (válido)

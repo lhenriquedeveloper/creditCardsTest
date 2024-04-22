@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\CreditcardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-//Users Routes
-//Register User
-Route::post('/user', [UserController::class, 'store']);
+//Users Manager Routes
 //Return User
 Route::get('/user',[UserController::class,'index']);
 //Return User by id
@@ -16,13 +15,23 @@ Route::put('/user/{id}',[UserController::class,'update']);
 //Delete User by id
 Route::delete('/user/{id}',[UserController::class,'destroy']);
 
+
+//Auth Router
+//Create User
+Route::post('/register',[AuthController::class,'register']);
+
 //Credit Card Routes
+//Create Credit Card
 Route::post('/card', [CreditcardController::class, 'store']);
-//Return User
+//Return Credits Cards
 Route::get('/card',[CreditcardController::class,'index']);
-//Return User by id
+//Return Cards by User
 Route::get('/card/{id}',[CreditcardController::class,'show']);
-//Edit User by id
+//Return Card by id
 Route::put('/card/{id}',[CreditcardController::class,'update']);
-//Delete User by id
+//Delete Card by id
 Route::delete('/card/{id}',[CreditcardController::class,'destroy']);
+//Show Cards by User
+Route::get('/card/user/{User_id}',[CreditcardController::class,'cardByUser']);
+
+

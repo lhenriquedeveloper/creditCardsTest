@@ -11,6 +11,7 @@ class Creditcard extends Model
 
     protected $primaryKey = "id";
     protected $fillable = [
+        'name',
         'number',
         'cvv',
         'valid_date',

@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('creditcards', function (Blueprint $table) {
-            $table->id()->primary();
+        Schema::create('personal_access_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->morphs('tokenable');
             $table->string('name');
-            $table->string('number')->unique();
-            $table->integer('cvv')->unique();
-            $table->date('valid_date');
-            $table->unsignedBigInteger('user_id');
+            $table->string('token', 64)->unique();
+            $table->text('abilities')->nullable();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('creditcards');
+        Schema::dropIfExists('personal_access_tokens');
     }
 };
