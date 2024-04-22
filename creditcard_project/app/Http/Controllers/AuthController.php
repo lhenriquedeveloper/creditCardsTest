@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -24,12 +25,42 @@ class AuthController extends Controller
             'address' => $fields['address'],
             'phone' => $fields['phone'],
         ]);
-        $token = $user ->createToken($request->nameToken)->plainTextToken;
         return response([
             'message' => 'Usuário criado com sucesso',
             'user' => $user,
+        ], 201);
+    }
+
+    public function login(Request $request){
+        $fields = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        //Check email
+        $user = User::where('email', $fields['email'])->first();
+
+        //Check password
+        if(!$user || !Hash::check($fields['password'], $user->password)){
+            return response([
+                'message' => 'Credenciais inválidas'
+            ], 401);
+        }
+
+        $token = $user ->createToken('Usuario Logado')->plainTextToken;
+        return response([
+            'message' => 'Login realizado com sucesso',
+            'user' => $user,
             'token' => $token,
         ], 201);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+        return response()->json([
+            'message' => 'Logout realizado com sucesso'
+        ]);
     }
 
 

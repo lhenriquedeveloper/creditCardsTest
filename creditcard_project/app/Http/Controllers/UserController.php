@@ -1,23 +1,19 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
     public function index()
     {
         // Tenta exibir os usuários
         try{
-            return User::all();
+            return User::with('cards')->get();
         }
         catch (\Exception $e) {
             return response()->json(['message' => 'Erro ao exibir os usuários: ' . $e->getMessage()], 500);
         }
     }
-
     public function show(int $id)
      // Verifica se o ID foi fornecido (válido)
     {
@@ -37,7 +33,6 @@ class UserController extends Controller
             return response()->json(['message' => 'Erro ao exibir o usuário: ' . $e->getMessage()], 500);
         }
     }
-
     public function update(Request $request, int $id)
     {
         $user = User::findOrFail($id);
@@ -62,7 +57,6 @@ class UserController extends Controller
             return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
         }
     }
-
     public function destroy(int $id)
     {
         // Verifica se o ID foi fornecido (válido)
