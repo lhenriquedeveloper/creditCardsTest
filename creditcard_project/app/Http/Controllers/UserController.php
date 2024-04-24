@@ -4,6 +4,19 @@ use App\Models\User;
 use Illuminate\Http\Request;
 class UserController extends Controller
 {
+    public function store(Request $request)
+    {
+        // Verifica se existem campos no objeto de solicitação
+        if(count($request->all()) === 0) {
+            return response()->json(['message' => 'Nenhuma informação fornecida para criação do usuário'], 422);
+        }
+        // Tenta criar o cartão
+        try {
+            return User::create($request->all());
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Erro ao criar o usuário: ' . $e->getMessage()], 500);
+        }
+    }
     public function index()
     {
         // Tenta exibir os usuários
