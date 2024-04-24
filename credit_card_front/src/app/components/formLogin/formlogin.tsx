@@ -1,13 +1,18 @@
+"use client";
+import { useState } from "react";
+import FormRegister from "../formRegister/formRegister";
+
 export default function FormLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Credit Card Manager</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+          <p className="py-6 italic">
+            Bem-vindo ao Credit Card Manager, sua solução completa para
+            gerenciar seus cartões de crédito com facilidade e segurança!
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -18,8 +23,8 @@ export default function FormLogin() {
               </label>
               <input
                 type="email"
-                placeholder="email"
-                className="input input-bordered"
+                placeholder="Email"
+                className="input input-bordered placeholder:italic"
                 required
               />
             </div>
@@ -29,20 +34,31 @@ export default function FormLogin() {
               </label>
               <input
                 type="password"
-                placeholder="senha"
-                className="input input-bordered"
+                placeholder="Senha"
+                className="input input-bordered placeholder:italic"
                 required
               />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Não tem uma conta? Cadastre-se aqui.
-                </a>
+                <label
+                  htmlFor="form_register"
+                  className="label-text-alt link link-hover"
+                >
+                  Não tem uma conta? Cadastre-se aqui
+                </label>
               </label>
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
             </div>
           </form>
+          <input type="checkbox" id="form_register" className="modal-toggle" />
+          <div className="modal" role="dialog">
+            <div className="modal-box">
+              <h3 className="text-lg font-bold">Faça seu cadastro abaixo:</h3>
+              <FormRegister />
+            </div>
+            <label className="modal-backdrop" htmlFor="form_register"></label>
+          </div>
         </div>
       </div>
     </div>
