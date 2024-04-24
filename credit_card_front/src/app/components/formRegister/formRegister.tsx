@@ -1,7 +1,6 @@
 "use client";
-import axios from "axios";
 import { useState } from "react";
-import api from "../../services/api";
+import api from "@/app/services/api";
 
 export default function FormRegister() {
   const [email, setEmail] = useState("");

@@ -1,10 +1,30 @@
 "use client";
 import { useState } from "react";
 import FormRegister from "../formRegister/formRegister";
+import api from "@/app/services/api";
+import { useRouter } from "next/navigation";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    try {
+      const response = await api.post("/api/login", {
+        email: email,
+        password: password,
+      });
+      let token = response.data.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", email);
+      router.push('/dashboard');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -16,7 +36,7 @@ export default function FormLogin() {
           </p>
         </div>
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body">
+          <div className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email:</span>
@@ -26,6 +46,10 @@ export default function FormLogin() {
                 placeholder="Email"
                 className="input input-bordered placeholder:italic"
                 required
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
               />
             </div>
             <div className="form-control">
@@ -37,6 +61,10 @@ export default function FormLogin() {
                 placeholder="Senha"
                 className="input input-bordered placeholder:italic"
                 required
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
               />
               <label className="label">
                 <label
@@ -48,9 +76,9 @@ export default function FormLogin() {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary">Login</button>
+              <button className="btn btn-primary" onClick={handleLogin}>Login</button>
             </div>
-          </form>
+          </div>
           <input type="checkbox" id="form_register" className="modal-toggle" />
           <div className="modal" role="dialog">
             <div className="modal-box">
