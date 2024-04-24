@@ -1,7 +1,11 @@
+import NavDash from "@/app/components/navDash/navdash";
+import Dashmenu from "../components/dashMenu/dashmenu";
+
 export default function Dashboard() {
   return (
     <main>
-      <div>Dashboard</div>
+      <NavDash/>
+      <Dashmenu/>
     </main>
   );
 }
