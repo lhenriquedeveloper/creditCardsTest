@@ -8,13 +8,13 @@ class UserController extends Controller
     {
         // Verifica se existem campos no objeto de solicitação
         if(count($request->all()) === 0) {
-            return response()->json(['message' => 'Nenhuma informação fornecida para criação do usuário'], 422);
+            return response()->json(['message' => 'Nenhuma informação fornecida para criação do cliente'], 422);
         }
         // Tenta criar o cartão
         try {
             return User::create($request->all());
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao criar o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao criar o cliente: ' . $e->getMessage()], 500);
         }
     }
     public function index()
@@ -24,7 +24,7 @@ class UserController extends Controller
             return User::with('cards')->get();
         }
         catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao exibir os usuários: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao exibir os clientes: ' . $e->getMessage()], 500);
         }
     }
     public function show(int $id)
@@ -43,7 +43,7 @@ class UserController extends Controller
         try {
             return User::findOrFail($id);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao exibir o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao exibir o cliente: ' . $e->getMessage()], 500);
         }
     }
     public function update(Request $request, int $id)
@@ -67,7 +67,7 @@ class UserController extends Controller
             $user->update($request->all());
             return $user;
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao atualizar o usuário: ' . $e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao atualizar o cliente: ' . $e->getMessage()], 500);
         }
     }
     public function destroy(int $id)
@@ -88,7 +88,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Usuário excluído com sucesso'], 200);
         }
         catch (\Exception $e) {
-            return response()->json(['message' => 'Erro ao excluir o usuário' .$e->getMessage()], 500);
+            return response()->json(['message' => 'Erro ao excluir o cliente' .$e->getMessage()], 500);
         }
 
     }

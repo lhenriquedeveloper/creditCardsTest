@@ -1,14 +1,12 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Creditcard;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasFactory,HasApiTokens,Notifiable;
+    use HasFactory;
     protected $primaryKey = "id";
     protected $fillable = [
         'name',
@@ -16,11 +14,7 @@ class User extends Authenticatable
         'email',
         'address',
         'phone',
-        'password',
-    ];
-    protected $hidden = [
-        'password',
-        'remember_token',
+
     ];
     public function cards(){
         return $this->hasMany(Creditcard::class);

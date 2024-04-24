@@ -19,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 // Route::delete('/card/{id}',[CreditcardController::class,'destroy']);
 // Route::get('/card/user/{User_id}',[CreditcardController::class,'cardByUser']);
 
+//Auth Routes
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
+
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResources([
         'user' => UserController::class,
@@ -26,8 +31,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     ]);
 });
 
-//Auth Routes
-Route::post('/register',[AuthController::class,'register']);
-Route::post('/login',[AuthController::class,'login']);
+
 
 
