@@ -3,15 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import api from "../../services/api";
 import Carouselcards from "../carouselCards/carouselcards";
-
-interface Client {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  address: string;
-  phone: string;
-}
+import { Cards } from "@/app/interfaces/ICards";
+import { Client } from "@/app/interfaces/IClient";
 
 export default function Tableuser() {
   const token = localStorage.getItem("token");
@@ -20,9 +13,13 @@ export default function Tableuser() {
   };
 
   const [clients, setClients] = useState<Client[]>([]);
+  const [selectedClientName, setSelectedClientName] = useState<string | null>(
+    null
+  );
+  const [cards, setCards] = useState<Cards[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getClients = async () => {
       try {
         const response = await api.get("/api/user", config);
         console.log(response.data);
@@ -32,8 +29,13 @@ export default function Tableuser() {
       }
     };
 
-    fetchData();
+    getClients();
   }, []);
+
+  const handleClientandCardSelect = (clientName: string, cards: Cards[]) => {
+    setSelectedClientName(clientName);
+    setCards(cards);
+  };
 
   return (
     <>
@@ -69,7 +71,12 @@ export default function Tableuser() {
                 <td>{client.phone}</td>
                 <label htmlFor="cardmodal">
                   <td>
-                    <i className="bi bi-eye-fill hover:text-purple-600 duration-500 cursor-pointer"></i>
+                    <i
+                      className="bi bi-eye-fill hover:text-purple-600 duration-500 cursor-pointer"
+                      onClick={() =>
+                        handleClientandCardSelect(client.name, client.cards)
+                      }
+                    ></i>
                   </td>
                 </label>
 
@@ -83,8 +90,10 @@ export default function Tableuser() {
         <input type="checkbox" id="cardmodal" className="modal-toggle" />
         <div className="modal" role="dialog">
           <div className="modal-box">
-            <h3 className="text-lg font-bold">Cartões do Usuário:</h3>
-            <Carouselcards />
+            <h3 className="text-lg font-bold">
+              Cartões de {selectedClientName}:
+            </h3>
+            <Carouselcards cards={cards} />
           </div>
           <label className="modal-backdrop" htmlFor="cardmodal"></label>
         </div>
