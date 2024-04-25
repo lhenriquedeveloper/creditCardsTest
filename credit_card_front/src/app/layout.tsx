@@ -1,5 +1,6 @@
 "use client";
 import "./globals.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { Inter } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { checkIsPublicRoute } from "@/function/check-is-public-route";

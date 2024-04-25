@@ -1,6 +1,4 @@
-"use client";
 export default function Navdash() {
-  const UserEmail = localStorage.getItem("email");
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -23,9 +21,6 @@ export default function Navdash() {
           </div>
         </div>
         <a className="btn btn-ghost text-xl">Credit Card Manager</a>
-      </div>
-      <div className="navbar-center hidden md:flex">
-        <span>{UserEmail}</span>
       </div>
       <div className="navbar-end">
         <a className="btn">Logout</a>

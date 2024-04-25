@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import api from "../../services/api";
+import Carouselcards from "../carouselCards/carouselcards";
 
 interface Client {
   id: number;
@@ -66,10 +67,27 @@ export default function Tableuser() {
                 <td>{client.email}</td>
                 <td>{client.address}</td>
                 <td>{client.phone}</td>
+                <label htmlFor="cardmodal">
+                  <td>
+                    <i className="bi bi-eye-fill hover:text-purple-600 duration-500 cursor-pointer"></i>
+                  </td>
+                </label>
+
+                <td>
+                  <i className="bi bi-trash3-fill hover:text-red-600 duration-500 cursor-pointer"></i>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <input type="checkbox" id="cardmodal" className="modal-toggle" />
+        <div className="modal" role="dialog">
+          <div className="modal-box">
+            <h3 className="text-lg font-bold">Cartões do Usuário:</h3>
+            <Carouselcards />
+          </div>
+          <label className="modal-backdrop" htmlFor="cardmodal"></label>
+        </div>
       </div>
     </>
   );
