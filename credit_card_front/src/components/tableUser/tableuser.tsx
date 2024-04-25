@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import api from "../../services/api";
 import Carouselcards from "../carouselCards/carouselcards";
-import { Cards } from "@/app/interfaces/ICards";
-import { Client } from "@/app/interfaces/IClient";
+import { Client } from "../../interfaces/IClient";
+import { Cards } from "@/interfaces/ICards";
 
 export default function Tableuser() {
   const token = localStorage.getItem("token");
@@ -18,24 +18,23 @@ export default function Tableuser() {
   );
   const [cards, setCards] = useState<Cards[]>([]);
 
+  const handleClientSelect = (clientName: string, cards: Cards[]) => {
+    setSelectedClientName(clientName);
+    setCards(cards);
+  };
+
   useEffect(() => {
-    const getClients = async () => {
+    const fetchData = async () => {
       try {
         const response = await api.get("/api/user", config);
-        console.log(response.data);
         setClients(response.data);
       } catch (error) {
         console.error(error);
       }
     };
 
-    getClients();
+    fetchData();
   }, []);
-
-  const handleClientandCardSelect = (clientName: string, cards: Cards[]) => {
-    setSelectedClientName(clientName);
-    setCards(cards);
-  };
 
   return (
     <>
@@ -69,17 +68,16 @@ export default function Tableuser() {
                 <td>{client.email}</td>
                 <td>{client.address}</td>
                 <td>{client.phone}</td>
-                <label htmlFor="cardmodal">
-                  <td>
+                <td>
+                  <label htmlFor="cardmodal">
                     <i
                       className="bi bi-eye-fill hover:text-purple-600 duration-500 cursor-pointer"
                       onClick={() =>
-                        handleClientandCardSelect(client.name, client.cards)
+                        handleClientSelect(client.name, client.cards)
                       }
                     ></i>
-                  </td>
-                </label>
-
+                  </label>
+                </td>
                 <td>
                   <i className="bi bi-trash3-fill hover:text-red-600 duration-500 cursor-pointer"></i>
                 </td>

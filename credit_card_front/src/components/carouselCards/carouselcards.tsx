@@ -1,5 +1,5 @@
 import React from "react";
-import { Cards } from "@/app/interfaces/ICards";
+import { Cards } from "@/interfaces/ICards";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Cardcredit from "../cardCredit/cardcredit";
