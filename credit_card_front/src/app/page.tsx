@@ -1,5 +1,5 @@
-import Navbar from "./components/navbar/navbar";
-import FormLogin from "./components/formLogin/formlogin";
+import Navbar from "../components/navbar/navbar";
+import FormLogin from "../components/formLogin/formlogin";
 
 export default function Home() {
   return (

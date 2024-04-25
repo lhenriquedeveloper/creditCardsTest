@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
 import FormRegister from "../formRegister/formRegister";
-import api from "@/app/services/api";
+import api from "../../services/api";
 import { useRouter } from "next/navigation";
 
 export default function FormLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-<<<<<<< HEAD
-=======
   const router = useRouter();
 
   const handleLogin = async () => {
@@ -20,13 +18,11 @@ export default function FormLogin() {
       let token = response.data.token;
       localStorage.setItem("token", token);
       localStorage.setItem("email", email);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } catch (error) {
       console.error(error);
     }
-  }
-
->>>>>>> 0440f6ddbfe7f35f0053257b6f5114103e258875
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -79,7 +75,9 @@ export default function FormLogin() {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn btn-primary" onClick={handleLogin}>Login</button>
+              <button className="btn btn-primary" onClick={handleLogin}>
+                Login
+              </button>
             </div>
           </div>
           <input type="checkbox" id="form_register" className="modal-toggle" />

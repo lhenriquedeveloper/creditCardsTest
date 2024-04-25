@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import api from "@/app/services/api";
+import api from "../../services/api";
 
 export default function FormRegister() {
   const [email, setEmail] = useState("");
