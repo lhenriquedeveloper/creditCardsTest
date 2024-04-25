@@ -1,10 +1,25 @@
+import { SetStateAction, useState } from "react";
 import Tableuser from "../tableUser/tableuser";
 
 export default function Dashmenu() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="mx-auto max-w-[80%] p-8">
       <label className="input input-bordered flex items-center gap-2">
-        <input type="text" className="grow placeholder:italic" placeholder="Digite o cliente que deseja buscar" />
+        <input
+          type="text"
+          className="grow placeholder:italic"
+          placeholder="Digite o cliente que deseja buscar"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 16 16"
@@ -19,7 +34,8 @@ export default function Dashmenu() {
         </svg>
       </label>
       <div className="divider"></div>
-      <Tableuser/>
+      {/* Renderize a tabela de usuários (clientes) e passe o valor da busca como prop */}
+      <Tableuser searchQuery={searchQuery} />
     </div>
   );
 }

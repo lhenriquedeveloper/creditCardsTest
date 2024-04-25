@@ -45,6 +45,7 @@ export default function FormLogin() {
                 placeholder="Email"
                 className="input input-bordered placeholder:italic"
                 required
+                maxLength={50}
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -60,6 +61,7 @@ export default function FormLogin() {
                 placeholder="Senha"
                 className="input input-bordered placeholder:italic"
                 required
+                maxLength={50}
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}

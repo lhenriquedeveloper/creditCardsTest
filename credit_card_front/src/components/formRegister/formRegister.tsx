@@ -30,6 +30,7 @@ export default function FormRegister() {
           placeholder="Email"
           className="input input-bordered placeholder:italic"
           required
+          maxLength={50}
           autoComplete="off"
           onChange={(e) => {
             setEmail(e.target.value);
@@ -46,6 +47,7 @@ export default function FormRegister() {
           placeholder="Senha"
           className="input input-bordered placeholder:italic"
           required
+          maxLength={50}
           autoComplete="off"
           onChange={(e) => {
             setPassword(e.target.value);

@@ -1,9 +1,10 @@
 "use client";
-import React, { useState } from "react";
 import creditCardModel from "../../assets/credit-card.svg";
 import Image from "next/image";
+import React, { useState } from "react";
 import { Cards } from "@/interfaces/ICards";
 import { toast, ToastContainer } from "react-toastify";
+import { formatExpirationDate } from "@/function/mask-date-card/dateCard";
 import "react-toastify/dist/ReactToastify.css";
 import api from "@/services/api";
 
@@ -34,19 +35,6 @@ const Cardcredit: React.FC<Props> = ({ cards }) => {
     }
   };
 
-  const formatExpirationDate = (expirationDate: string) => {
-    if (
-      expirationDate &&
-      expirationDate.length === 10 &&
-      expirationDate.includes("-")
-    ) {
-      const [year, month] = expirationDate.split("-");
-      return `${month}/${year.slice(2)}`;
-    } else {
-      return expirationDate;
-    }
-  };
-
   return (
     <div className="card w-96 bg-base-100 shadow-xl mt-4">
       <figure>
@@ -69,7 +57,6 @@ const Cardcredit: React.FC<Props> = ({ cards }) => {
           </button>
         </div>
       </div>
-
       {showConfirmation && (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 rounded-xl">
           <div className="bg-white p-4 rounded shadow-lg">
@@ -91,7 +78,6 @@ const Cardcredit: React.FC<Props> = ({ cards }) => {
           </div>
         </div>
       )}
-
       <ToastContainer />
     </div>
   );
