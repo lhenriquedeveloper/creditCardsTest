@@ -23,6 +23,13 @@ class CreditcardController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|string|max:60',
+            'number'=> 'required|string|max:16',
+            'cvv'=> 'required|integer|max:3',
+            'valid_date'=> 'required|date|',
+            'user_id'=> 'required|integer',
+        ]);
         // Verifica se existem campos no objeto de solicitação
         if(count($request->all()) === 0) {
             return response()->json(['message' => 'Nenhum dado fornecido para criação do cartão'], 422);
@@ -63,7 +70,7 @@ class CreditcardController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $user = Creditcard::findOrFail($id);
+        $card = Creditcard::findOrFail($id);
         // Verifica se existem campos no objeto de solicitação, ou se o ID foi fornecido (válido)
         if(count($request->all()) === 0) {
             return response()->json(['message' => 'Nenhum dado fornecido para atualização'], 422);
@@ -79,8 +86,8 @@ class CreditcardController extends Controller
         }
         // Tenta atualizar o cartão
         try {
-            $user->update($request->all());
-            return $user;
+            $card->update($request->all());
+            return $card;
         } catch (\Exception $e) {
             return response()->json(['message' => 'Erro ao atualizar o cartão: ' . $e->getMessage()], 500);
         }

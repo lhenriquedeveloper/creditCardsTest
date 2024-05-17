@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->primary();
             $table->string('name');
             $table->string('number')->unique();
-            $table->integer('cvv')->unique();
+            $table->integer('cvv');
             $table->date('valid_date');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
